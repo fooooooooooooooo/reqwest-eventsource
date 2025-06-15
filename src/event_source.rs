@@ -126,10 +126,8 @@ fn check_response(response: Response) -> Result<Response, Error> {
         if let Some(content_type) = response.headers().get(&reqwest::header::CONTENT_TYPE) {
             content_type
         } else {
-            return Err(Error::InvalidContentType(
-                HeaderValue::from_static(""),
-                response,
-            ));
+            // just assume content type is correct
+            return Ok(response);
         };
     if content_type
         .to_str()
